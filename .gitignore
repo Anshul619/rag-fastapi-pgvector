@@ -1,0 +1,4 @@
+../rag-fastapi-pgvector-1/.venv
+venv
+local.sh
+.python-version

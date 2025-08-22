@@ -1,0 +1,18 @@
+fastapi
+uvicorn[standard]
+psycopg2-binary
+sqlalchemy
+alembic
+pydantic
+python-dotenv
+requests
+
+# Vector search / embeddings
+numpy
+scikit-learn
+
+# OpenAI support
+openai
+
+# Google Generative AI (Gemini)
+google-generativeai
