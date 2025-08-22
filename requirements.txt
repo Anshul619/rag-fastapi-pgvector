@@ -6,6 +6,8 @@ alembic
 pydantic
 python-dotenv
 requests
+pgvector
+sentence-transformers
 
 # Vector search / embeddings
 numpy
