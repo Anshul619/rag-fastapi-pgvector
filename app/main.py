@@ -2,6 +2,8 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app import db, models, schemas, llm
 from app.embeddings import embedder
+from sqlalchemy import text
+from app.rag import sentence_chunk
 
 # Create FastAPI app
 app = FastAPI(title="RAG FastAPI + pgvector")
@@ -26,14 +28,12 @@ def ingest_document(doc: schemas.DocumentCreate, session: Session = Depends(get_
     session.add(document)
     session.flush()  # get document.id
 
-    for chunk in chunk_text(doc.text):
+    for chunk in sentence_chunk(doc.text, chunk_size=5, overlap=2):
         embedding = embedder.encode(chunk).tolist()
         session.add(models.Chunk(document_id=document.id, content=chunk, embedding=embedding))
 
     session.commit()
     return {"status": "ok", "document_id": document.id}
-
-from sqlalchemy import text
 
 @app.post("/query")
 def query_documents(req: schemas.QueryRequest, session: Session = Depends(get_db)):
@@ -53,16 +53,7 @@ def query_documents(req: schemas.QueryRequest, session: Session = Depends(get_db
 
     context = "\n\n".join([d["content"] for d in docs])
 
-    prompt = f"""
-    You are a helpful assistant. Use the following context to answer the question.
-
-    Context:
-    {context}
-
-    Question: {req.question}
-    """
-
-    answer = llm.ask_gemini(prompt)
+    answer = llm.ask_model(context, req.question)
 
     return {
         "answer": answer,

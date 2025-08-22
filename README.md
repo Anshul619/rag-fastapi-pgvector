@@ -36,7 +36,9 @@ unset DATABASE_URL
 
 Load variables from .env
 
-`source .env`
+````
+source .env
+````
 
 ## Run the API server
 
@@ -50,6 +52,10 @@ uvicorn app.main:app --reload --port 8000
 curl -X POST http://localhost:8000/ingest \
 -H "Content-Type: application/json" \
 -d '{"title":"Sample","text":"FastAPI is a modern, fast web framework..."}'
+
+curl -X POST http://localhost:8000/ingest \
+-H "Content-Type: application/json" \
+-d '{"title":"Sample","text":"FastAPI is a modern, fast web framework... game is pay. Another sentence here. And one more sentence to chunk."}'
 ````
 
 ## Query the database

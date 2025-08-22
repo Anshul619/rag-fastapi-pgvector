@@ -8,6 +8,7 @@ python-dotenv
 requests
 pgvector
 sentence-transformers
+nltk
 
 # Vector search / embeddings
 numpy

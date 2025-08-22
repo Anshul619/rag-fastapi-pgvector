@@ -4,6 +4,7 @@ CREATE EXTENSION IF NOT EXISTS vector;
 CREATE TABLE IF NOT EXISTS documents (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   title TEXT NOT NULL,
+  content TEXT NOT NULL,
   meta JSONB DEFAULT '{}'::jsonb,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
@@ -13,7 +14,6 @@ CREATE TABLE IF NOT EXISTS documents (
 CREATE TABLE IF NOT EXISTS chunks (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   document_id UUID REFERENCES documents(id) ON DELETE CASCADE,
-  chunk_index INT NOT NULL,
   content TEXT NOT NULL,
   embedding vector(384), -- update if you change model
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()

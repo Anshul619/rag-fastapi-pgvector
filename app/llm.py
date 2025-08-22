@@ -15,11 +15,20 @@ genai.configure(api_key=API_KEY)
 # Initialize model
 model = genai.GenerativeModel("gemini-2.0-flash")
 
-def ask_gemini(prompt: str) -> str:
+def ask_model(context, question: str) -> str:
     """
     Sends a prompt to Gemini and returns the response text.
     """
     try:
+        print(context, question)
+        prompt = f"""
+        You are a helpful assistant. Use the following context to answer the question.
+    
+        Context:
+        {context}
+    
+        Question: {question}
+        """
         response = model.generate_content(prompt)
         return response.text
     except Exception as e:
