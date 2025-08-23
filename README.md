@@ -7,6 +7,8 @@ Copy the example environment file and update it as needed:
 ````
 cp .env.example .env
 ````
+## Import DB SqL
+- sql/init.sql in postgres db
 
 ## Start the database
 
