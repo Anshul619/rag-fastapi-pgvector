@@ -1,5 +1,12 @@
 # Quick start
 
+## Git Clone
+
+````shell
+git clone rag-fastapi-pgvector
+cd rag-fastapi-pgvector
+````
+
 ## Setup environment variables
 - Copy the example environment file and update it as needed
 - Add **GEMINI_API_KEY** if you want generative answers
@@ -20,7 +27,7 @@ docker compose up -d db
 ## Create and activate virtual environment
 
 ````shell
-python3 -m venv venv
+python3 -m venv .venv
 source .venv/bin/activate
 ````
 
